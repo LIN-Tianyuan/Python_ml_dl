@@ -24,3 +24,13 @@ ary = np.array(data,
                dtype={'names': ['name', 'score', 'age'],
                       'formats': ['U2','3int32','int32']})
 print(ary['age'])   # [18 19 20]
+
+import numpy as np
+a = np.arange(1, 9)
+print(a)		# [1 2 3 4 5 6 7 8]
+b = a.reshape(2, 4)	#视图变维  : 变为2行4列的二维数组
+print(b)
+c = b.reshape(2, 2, 2) #视图变维    变为2页2行2列的三维数组
+print(c)
+d = c.ravel()	#视图变维	变为1维数组
+print(d)
