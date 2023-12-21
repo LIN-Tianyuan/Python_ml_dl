@@ -8,6 +8,9 @@ import sklearn.linear_model as lm   # linear model
 import sklearn.metrics as sm    # Evaluation module
 import sklearn.pipeline as pl   # data pipeline
 import sklearn.preprocessing as sp  # Data preprocessing
+import sklearn.tree as st  # decision tree
+import pandas as pd
+import matplotlib.pyplot as plt
 
 boston = sd.load_boston()
 # print(boston.keys())    # dict_keys(['data', 'target', 'feature_names', 'DESCR', 'filename', 'data_module'])
@@ -43,8 +46,8 @@ model_dict = {'Linear regression': lm.LinearRegression(),
               'Ridge regression': lm.Ridge(),
               'Polynomial regression': pl.make_pipeline(sp.PolynomialFeatures(2),
                                                         lm.LinearRegression())}
-for name, model in model_dict.items():
-    get_model(model, name)
+# for name, model in model_dict.items():
+#     get_model(model, name)
 
 """
 ---------- Linear regression ----------
@@ -59,3 +62,33 @@ test set: 0.5703641157344462
 training set: 0.9336239312238316
 test set: 0.6170018549388412
 """
+
+# single-tree regression
+model = st.DecisionTreeRegressor(max_depth=4, random_state=7)
+model.fit(train_x, train_y)
+pred_train_y = model.predict(train_x)
+pred_test_y = model.predict(test_x)
+print('Single-tree training sets:', sm.r2_score(train_y, pred_train_y))
+print('Single tree test set:', sm.r2_score(test_y, pred_test_y))
+"""
+Single-tree training sets: 0.9466499293522961
+Single tree test set: 0.7006779545917512
+"""
+
+# Importance of features
+fi = model.feature_importances_
+print(fi)
+fi = pd.Series(fi,
+               index=boston.feature_names)
+fi = fi.sort_values(ascending=False)
+print(fi)
+
+# plt.bar(fi.index, fi.values)
+
+
+# Decision Tree Visualization
+st.plot_tree(model, fontsize=10,
+             feature_names=boston.feature_names,
+             filled=True)
+plt.show()
+
