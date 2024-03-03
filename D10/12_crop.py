@@ -16,7 +16,11 @@ def random_crop(img, cw, ch):
 
 # Center Cut
 def center_crop(img, cw, ch):
-    pass
+    start_x = int(img.shape[1] / 2) - int(cw / 2)
+    start_y = int(img.shape[0] / 2) - int(ch / 2)
+    # slice
+    random_res = img[start_y:start_y + ch, start_x:start_x + cw]
+    return random_res
 
 
 if __name__ == '__main__':
@@ -25,5 +29,8 @@ if __name__ == '__main__':
     # Random cropping
     random_res = random_crop(img, 200, 200)
     cv2.imshow('random_res',random_res)
+    # Center cropping
+    center = center_crop(img, 200, 200)
+    cv2.imshow('center', center)
     cv2.waitKey()
     cv2.destroyAllWindows()
