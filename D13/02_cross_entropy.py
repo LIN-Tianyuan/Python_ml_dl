@@ -24,3 +24,15 @@ print('Cross-entropy1:', -entropy1)
 print('Cross-entropy2:', -entropy2)
 print('Cross-entropy3:', -entropy3)
 print('Cross-entropy4:', -entropy4)
+
+"""
+total_sample = 60000
+batch_size = 100    # Batch size
+total_batch = int(total_sample / batch_size)
+
+epoch = 10  # round
+
+for i in range(epoch):  # 10 rounds of training (60,000)
+    for j in range(total_batch):
+        # Get a batch and train.
+"""
